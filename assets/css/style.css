@@ -1,0 +1,36 @@
+body {
+    background: url("../images/mordor.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+header {
+    width: 100%;
+    min-width: 100%;
+}
+
+#logo-container {
+    margin: 3em auto;
+    max-width: 30%;
+}
+
+#logo {
+    display: block;
+    margin: 0 auto;
+}
+
+#button-holder {
+    width: 100%;
+    min-width: 100%;
+    text-align: center;
+}
+
+.start-button {
+    background-color: #802000;
+    border: none;
+    color: #f6f6ee;
+    padding: 1em 2em;
+    text-align: center;
+    font-size: 1.2em;
+    margin-left: 2em;
+    border-radius: 2px;
+}
