@@ -1,0 +1,4 @@
+Player chooses a side by selecting "Take the Ring" or "Destroy the Ring"
+If they choose "Take the Ring", they will be shown the evil characters and be asked to pick one.
+If they choose "Destroy the Ring", they will be shown the good characters and be asked to pick one.
+Upon choosing a character, the computer will randomly pick three enemies for the player from the opposite team.
