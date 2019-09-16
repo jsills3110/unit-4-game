@@ -7,6 +7,7 @@ var losses = 0;
 
 $(".start-button").on("click", function() {
     chooseCharacterHeader();
+    $("#button-holder").empty();
     if (this.value === "Take the Ring") {
         playerTeam = "villains";
     } else {
@@ -17,8 +18,10 @@ $(".start-button").on("click", function() {
 
 function chooseCharacterHeader() {
     $("header").empty();
-    $("#button-holder").empty();
-
+    var instructions = $("<h1>");
+    instructions.html("Select your fighter!");
+    $("header").append(instructions);
+    
 }
 
 function showPlayableCharacters() {
