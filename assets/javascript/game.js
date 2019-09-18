@@ -9,6 +9,7 @@ var buttonHolder = $("#button-holder");
 var headerHolder = $("header");
 var yourCharacterHolder = $("#choose-your-character");
 var enemiesHolder = $("#enemies");
+var instructions = $("<h1>");
 
 $(".start-button").on("click", function () {
     instructionHeader();
@@ -23,10 +24,8 @@ $(".start-button").on("click", function () {
 
 function instructionHeader() {
     headerHolder.empty();
-    var instructions = $("<h1>");
     instructions.html("Select your fighter!");
     headerHolder.prepend(instructions);
-
 }
 
 function showPlayableCharacters() {
@@ -71,6 +70,8 @@ function displayEnemies() {
         image.attr("id", enemyCharacters[i]);
         enemiesHolder.append(image);
     }
+    instructions.html("Choose your enemy!");
+    headerHolder.html(instructions);
 }
 
 function chooseEnemy(image) {
