@@ -8,6 +8,13 @@ header {
     min-width: 100%;
 }
 
+h1 {
+    font-size: 2em;
+    color: #f6f6ee;
+    text-align: center;
+    margin: 1em auto;
+}
+
 #logo-container {
     margin: 3em auto;
     max-width: 30%;
@@ -22,6 +29,11 @@ header {
     width: 100%;
     min-width: 100%;
     text-align: center;
+}
+
+#choose-your-character {
+    text-align: center;
+    margin: 0 auto;
 }
 
 .start-button {

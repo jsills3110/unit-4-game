@@ -1,13 +1,18 @@
-var heroes = ["frodobaggins", "samwisegamgee", "gandalf", "aragorn", "legolas", "gimli"];
+var heroes = ["frodobaggins", "samwisegamgee", "gandalf", "aragorn", "legolas"];
 var villains = ["nazgul", "saruman", "sauron", "gollum", "shelob"];
 var playerTeam = "";
 
 var wins = 0;
 var losses = 0;
 
-$(".start-button").on("click", function() {
-    chooseCharacterHeader();
-    $("#button-holder").empty();
+var buttonHolder = $("#button-holder");
+var headerHolder = $("header");
+var yourCharacterHolder = $("#choose-your-character");
+var enemiesHolder = $("#enemies");
+
+$(".start-button").on("click", function () {
+    instructionHeader();
+    buttonHolder.empty();
     if (this.value === "Take the Ring") {
         playerTeam = "villains";
     } else {
@@ -16,26 +21,58 @@ $(".start-button").on("click", function() {
     showPlayableCharacters();
 });
 
-function chooseCharacterHeader() {
-    $("header").empty();
+function instructionHeader() {
+    headerHolder.empty();
     var instructions = $("<h1>");
     instructions.html("Select your fighter!");
-    $("header").append(instructions);
-    
+    headerHolder.prepend(instructions);
+
 }
 
 function showPlayableCharacters() {
+    var chosenCharacters = [];
     if (playerTeam === "villains") {
-        for (var i = 0; i < villains.length; i++) {
-            var image = $("<img>");
-            image.attr("src", "assets/images/" + villains[i] + ".png");
-            $("#choose-your-character").append(image);
-        }
+        chosenCharacters = villains;
     } else {
-        for (var i = 0; i < heroes.length; i++) {
-            var image = $("<img>");
-            image.attr("src", "assets/images/" + heroes[i] + ".png");
-            $("#choose-your-character").append(image);
-        }
+        chosenCharacters = heroes;
     }
+
+    for (var i = 0; i < chosenCharacters.length; i++) {
+        var image = $("<img>");
+        image.attr("src", "assets/images/" + chosenCharacters[i] + ".png");
+        image.attr("alt", chosenCharacters[i]);
+        image.attr("onclick", "chooseCharacter(this.src)");
+        image.attr("id", chosenCharacters[i]);
+        yourCharacterHolder.append(image);
+    }
+}
+
+function chooseCharacter(theCharacterImage) {
+    yourCharacterHolder.empty();
+    var charImage = $("<img>");
+    charImage.attr("src", theCharacterImage);
+    yourCharacterHolder.append(charImage);
+    displayEnemies();
+}
+
+function displayEnemies() {
+    var enemyCharacters = [];
+    if (playerTeam === "villains") {
+        enemyCharacters = heroes;
+    } else {
+        enemyCharacters = villains;
+    }
+
+    for (var i = 0; i < enemyCharacters.length; i++) {
+        var image = $("<img>");
+        image.attr("src", "assets/images/" + enemyCharacters[i] + ".png");
+        image.attr("alt", enemyCharacters[i]);
+        image.attr("onclick", "chooseEnemy(this.src)");
+        image.attr("id", enemyCharacters[i]);
+        enemiesHolder.append(image);
+    }
+}
+
+function chooseEnemy(image) {
+    console.log(image);
 }
