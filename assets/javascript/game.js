@@ -3,6 +3,7 @@ var frodo = {
     id: "frodobaggins",
     image: "assets/images/frodobaggins.png",
     health: 100,
+    currentPower: 5,
     attackPower: 5,
     counterPower: 5
 };
@@ -12,6 +13,7 @@ var gandalf = {
     id: "gandalf",
     image: "assets/images/gandalf.png",
     health: 180,
+    currentPower: 8,
     attackPower: 8,
     counterPower: 25
 }
@@ -21,6 +23,7 @@ var aragorn = {
     id: "aragorn",
     image: "assets/images/aragorn.png",
     health: 120,
+    currentPower: 6,
     attackPower: 6,
     counterPower: 15
 }
@@ -30,6 +33,7 @@ var nazgul = {
     id: "nazgul",
     image: "assets/images/nazgul.png",
     health: 100,
+    currentPower: 5,
     attackPower: 5,
     counterPower: 5
 }
@@ -39,6 +43,7 @@ var saruman = {
     id: "saruman",
     image: "assets/images/saruman.png",
     health: 120,
+    currentPower: 6,
     attackPower: 6,
     counterPower: 15
 }
@@ -48,6 +53,7 @@ var sauron = {
     id: "sauron",
     image: "assets/images/sauron.png",
     health: 180,
+    currentPower: 8,
     attackPower: 8,
     counterPower: 25
 }
@@ -66,8 +72,8 @@ var currentEnemy = {
     id: ""
 }
 
-friendlyCharacters = [];
-enemyCharacters = [];
+var friendlyCharacters = [];
+var enemyCharacters = [];
 
 var buttonHolder = $("#button-holder");
 var headerHolder = $("header");
@@ -77,6 +83,7 @@ var playerOptionsHolder = $("#player-options");
 var enemyCharacterHolder = $("#enemy-character");
 var friendsHolder = $("#friends");
 var enemiesHolder = $("#enemies");
+var messageLog = $("<div>");
 
 // At the start of the game, players can pick either the heroes or the villains.
 // When they make a choice, the next screen displays their playable characters.
@@ -164,6 +171,7 @@ function chooseEnemy(theEnemy) {
         }
 
         displayEnemies();
+        headerHolder.html("<h1>You are fighting " + currentEnemy.name + "!</h1>");
     }
 }
 
@@ -173,13 +181,36 @@ function displayOptions() {
     attackButton.attr("value", "attack");
     attackButton.html("Attack");
     attackButton.attr("onclick", "attackEnemy()");
+    attackButton.attr("style", "margin: 0");
     playerOptionsHolder.append(attackButton);
+
+    messageLog.attr("id", "#message-log");
+    messageLog.attr("style", "background-color: wheat; width: 20em; height: 15em; margin-top: 1em; overflow: auto; text-align: center");
+    playerOptionsHolder.append(messageLog);
 }
 
 function attackEnemy() {
     if (!enemyChosen) {
-        console.log("There is no enemy to attack yet.");
+        messageLog.prepend("<p>There is no enemy to attack yet.</p>");
     } else {
-        console.log("Ouch!");
+        currentEnemy.health -= playerCharacter.currentPower;
+        if (currentEnemy.health <= 0) {
+            enemyCharacters.splice(enemyCharacters.indexOf(currentEnemy), 1);
+            enemyChosen = false;
+            enemyCharacterHolder.empty();
+            headerHolder.html("<h1>You killed " + currentEnemy.name + "!</h1>");
+            displayEnemies();
+        } else {
+            playerCharacter.health -= currentEnemy.counterPower;
+            if (playerCharacter.health <= 0) {
+                alert("You lost!");
+            }
+        }
+        messageLog.prepend("<p>You attacked " + currentEnemy.name + " for " + playerCharacter.currentPower + " damage!</p>" +
+        "<p>" + currentEnemy.name + " attacked you for " + currentEnemy.counterPower + " damage!</p>" +
+        "<p>" + currentEnemy.name + "'s health is at " + currentEnemy.health + ".</p>" +
+        "<p>Your health is at " + playerCharacter.health + ".</p><br>");
+        
+        playerCharacter.currentPower += playerCharacter.attackPower;
     }
 }
