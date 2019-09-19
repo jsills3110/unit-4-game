@@ -31,15 +31,11 @@ h1 {
     text-align: center;
 }
 
-/* #game-board {
-    text-align: center;
-    margin: 0 auto;
-} */
-
 #game-board {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin-bottom: 2em;
 }
 
 #player-character {
@@ -55,6 +51,11 @@ h1 {
 #enemy-character {
     display: flex;
     flex-direction: column;
+}
+
+#friends {
+    text-align: center;
+    margin: 0 auto;
 }
 
 #enemies {
