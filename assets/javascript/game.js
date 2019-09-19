@@ -4,15 +4,21 @@ var playerTeam = "";
 
 var wins = 0;
 var losses = 0;
+var enemyChosen = false;
 
 var buttonHolder = $("#button-holder");
 var headerHolder = $("header");
-var yourCharacterHolder = $("#choose-your-character");
+var gameBoard = $("#game-board");
+var playerCharacterHolder = $("#player-character");
+var playerOptionsHolder = $("#player-options");
+var enemyCharacterHolder = $("#enemy-character");
+var friendsHolder = $("#friends");
 var enemiesHolder = $("#enemies");
-var instructions = $("<h1>");
 
+// At the start of the game, players can pick either the heroes or the villains.
+// When they make a choice, the next screen displays their playable characters.
 $(".start-button").on("click", function () {
-    instructionHeader();
+    headerHolder.html("<h1>Select your fighter!</h1>");
     buttonHolder.empty();
     if (this.value === "Take the Ring") {
         playerTeam = "villains";
@@ -22,12 +28,8 @@ $(".start-button").on("click", function () {
     showPlayableCharacters();
 });
 
-function instructionHeader() {
-    headerHolder.empty();
-    instructions.html("Select your fighter!");
-    headerHolder.prepend(instructions);
-}
-
+// After the player makes a choice about which side they are on, their playable
+// characters are displayed.
 function showPlayableCharacters() {
     var chosenCharacters = [];
     if (playerTeam === "villains") {
@@ -42,18 +44,21 @@ function showPlayableCharacters() {
         image.attr("alt", chosenCharacters[i]);
         image.attr("onclick", "chooseCharacter(this.src)");
         image.attr("id", chosenCharacters[i]);
-        yourCharacterHolder.append(image);
+        friendsHolder.append(image);
     }
 }
 
+// Once a player has chosen a character by clicking on the image, append the image
+// to the game board and display their enemies.
 function chooseCharacter(theCharacterImage) {
-    yourCharacterHolder.empty();
+    friendsHolder.empty();
     var charImage = $("<img>");
     charImage.attr("src", theCharacterImage);
-    yourCharacterHolder.append(charImage);
+    playerCharacterHolder.append(charImage);
     displayEnemies();
 }
 
+// Display the enemies that the player has to choose from.
 function displayEnemies() {
     var enemyCharacters = [];
     if (playerTeam === "villains") {
@@ -70,10 +75,16 @@ function displayEnemies() {
         image.attr("id", enemyCharacters[i]);
         enemiesHolder.append(image);
     }
-    instructions.html("Choose your enemy!");
-    headerHolder.html(instructions);
+    headerHolder.html("<h1>Choose your enemy!</h1>");
 }
 
-function chooseEnemy(image) {
-    console.log(image);
+// Once a player has chosen an enemy by clicking on the image, append the image
+// to the game board.
+function chooseEnemy(theEnemyImage) {
+    if (!enemyChosen) {
+        var enemyImage = $("<img>");
+        enemyImage.attr("src", theEnemyImage);
+        enemyCharacterHolder.append(enemyImage);
+        enemyChosen = true;
+    }
 }

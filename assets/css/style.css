@@ -31,9 +31,30 @@ h1 {
     text-align: center;
 }
 
-#choose-your-character {
+/* #game-board {
     text-align: center;
     margin: 0 auto;
+} */
+
+#game-board {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#player-character {
+    display: flex;
+    flex-direction: column;
+}
+
+#player-options {
+    display: flex;
+    flex-direction: column;
+}
+
+#enemy-character {
+    display: flex;
+    flex-direction: column;
 }
 
 #enemies {
