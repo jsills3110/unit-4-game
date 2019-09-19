@@ -22,10 +22,10 @@ var aragorn = {
     name: "Aragorn",
     id: "aragorn",
     image: "assets/images/aragorn.png",
-    health: 120,
+    health: 150,
     currentPower: 6,
     attackPower: 6,
-    counterPower: 15
+    counterPower: 20
 }
 
 var nazgul = {
@@ -42,10 +42,10 @@ var saruman = {
     name: "Saruman",
     id: "saruman",
     image: "assets/images/saruman.png",
-    health: 120,
+    health: 150,
     currentPower: 6,
     attackPower: 6,
-    counterPower: 15
+    counterPower: 20
 }
 
 var sauron = {
@@ -84,6 +84,7 @@ var enemyCharacterHolder = $("#enemy-character");
 var friendsHolder = $("#friends");
 var enemiesHolder = $("#enemies");
 var messageLog = $("<div>");
+var attackButton = $("<button>");
 
 // At the start of the game, players can pick either the heroes or the villains.
 // When they make a choice, the next screen displays their playable characters.
@@ -176,7 +177,6 @@ function chooseEnemy(theEnemy) {
 }
 
 function displayOptions() {
-    var attackButton = $("<button>");
     attackButton.attr("id", "#attack");
     attackButton.attr("value", "attack");
     attackButton.html("Attack");
@@ -185,8 +185,17 @@ function displayOptions() {
     playerOptionsHolder.append(attackButton);
 
     messageLog.attr("id", "#message-log");
-    messageLog.attr("style", "background-color: wheat; width: 20em; height: 15em; margin-top: 1em; overflow: auto; text-align: center");
+    messageLog.attr("style", "background-color: wheat; width: 20em; height: 15em; margin: 1em 0; overflow: auto; text-align: center");
     playerOptionsHolder.append(messageLog);
+
+    var resetButton = $("<button>");
+    resetButton.attr("value", "Reset game by refresh");
+    resetButton.attr("style", "margin: 0");
+    resetButton.html("Reset Game");
+    resetButton.on("click", function() {
+        document.location.reload(true);
+    });
+    playerOptionsHolder.append(resetButton);
 }
 
 function attackEnemy() {
@@ -203,7 +212,10 @@ function attackEnemy() {
         } else {
             playerCharacter.health -= currentEnemy.counterPower;
             if (playerCharacter.health <= 0) {
-                alert("You lost!");
+                headerHolder.html("<h1>You lost the game! Click Reset Game to try again.</h1>");
+                playerCharacterHolder.empty();
+                attackButton.attr("disabled", true);
+                attackButton.attr("style", "background-color: grey; margin: 0;");
             }
         }
         messageLog.prepend("<p>You attacked " + currentEnemy.name + " for " + playerCharacter.currentPower + " damage!</p>" +
