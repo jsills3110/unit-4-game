@@ -219,6 +219,7 @@ function attackEnemy() {
             enemyCharacters.splice(enemyCharacters.indexOf(currentEnemy), 1);
             enemyChosen = false;
             headerHolder.html("<h1>You killed " + currentEnemy.name + "!</h1>");
+            enemyCharacterHolder.empty();
             displayEnemies();
             
             // If there are no more enemies to fight...
